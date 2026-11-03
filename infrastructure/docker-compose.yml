@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Base de Datos Relacional PostgreSQL para Gobernanza y Auditoría
+  postgres:
+    image: postgres:16-alpine
+    container_name: sdss17_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: sdss_platform
+      POSTGRES_USER: sdss_user
+      POSTGRES_PASSWORD: sdss_secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sdss_user -d sdss_platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Backend FastAPI + PySpark + Scikit-Learn
+  backend:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile.backend
+    container_name: sdss17_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://sdss_user:sdss_secure_password_2026@postgres:5432/sdss_platform
+      SECRET_KEY: sdss17-super-secret-jwt-key-2026-escom-bigdata
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/workspace/data
+
+  # Frontend React 18 + Three.js + Tailwind + Nginx
+  frontend:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile.frontend
+    container_name: sdss17_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+

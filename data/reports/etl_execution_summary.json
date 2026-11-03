@@ -1,0 +1,60 @@
+{
+  "extract": {
+    "source_path": "C:\\Users\\ramir\\Documents\\ESCOM\\Septimo Semestre\\big data\\proyectoFinal\\data\\raw\\star_classification.csv",
+    "raw_rows": 100000,
+    "raw_columns": 18,
+    "columns": [
+      "obj_ID",
+      "alpha",
+      "delta",
+      "u",
+      "g",
+      "r",
+      "i",
+      "z",
+      "run_ID",
+      "rerun_ID",
+      "cam_col",
+      "field_ID",
+      "spec_obj_ID",
+      "class",
+      "redshift",
+      "plate",
+      "MJD",
+      "fiber_ID"
+    ],
+    "extraction_time_seconds": 0.0356,
+    "timestamp": "2026-11-02T15:05:08.473447"
+  },
+  "transform": {
+    "initial_rows": 100000,
+    "final_rows": 99999,
+    "rows_removed": 1,
+    "transformations_applied": [
+      "No exact duplicates found.",
+      "Filtered 1 rows with corrupted sensor readings (-9999).",
+      "IQR Outliers detected: {'u': 55, 'g': 98, 'r': 132, 'i': 198, 'z': 319}",
+      "Created astronomical color indices: u_g, g_r, r_i, i_z.",
+      "Computed 3D celestial sphere coordinates (pos_x_celestial, pos_y_celestial, pos_z_celestial).",
+      "Computed 3D cosmological spatial coordinates (pos_x_spatial, pos_y_spatial, pos_z_spatial).",
+      "Dropped 'rerun_ID' (zero variance constant 301)."
+    ],
+    "transformation_time_seconds": 0.1856,
+    "outlier_counts": {
+      "u": 55,
+      "g": 98,
+      "r": 132,
+      "i": 198,
+      "z": 319
+    }
+  },
+  "load": {
+    "parquet_path": "C:\\Users\\ramir\\Documents\\ESCOM\\Septimo Semestre\\big data\\proyectoFinal\\data\\processed\\sdss_cleaned.parquet",
+    "parquet_size_mb": 19.17,
+    "csv_path": "C:\\Users\\ramir\\Documents\\ESCOM\\Septimo Semestre\\big data\\proyectoFinal\\data\\processed\\sdss_cleaned.csv",
+    "csv_size_mb": 34.53,
+    "compression": "snappy",
+    "load_time_seconds": 9.0318,
+    "timestamp": "2026-11-02T15:05:17.690766"
+  }
+}

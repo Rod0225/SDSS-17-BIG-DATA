@@ -1,0 +1,146 @@
+{
+  "timestamp": "2026-11-02T09:06:40.189533",
+  "total_records": 100000,
+  "total_columns": 18,
+  "valid_records": 99999,
+  "discarded_records": 1,
+  "completeness_percentage": 99.999,
+  "missing_percentage": 0.0,
+  "duplicate_count": 0,
+  "duplicate_percentage": 0.0,
+  "sensor_error_count": 1,
+  "total_outliers_detected": 15186,
+  "outliers_by_column": {
+    "obj_ID": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": 1.2376453775581276e+18,
+      "upper_bound": 1.2376821339234386e+18
+    },
+    "alpha": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -32.047,
+      "upper_bound": 393.4602
+    },
+    "delta": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -46.9854,
+      "upper_bound": 92.0337
+    },
+    "u": {
+      "count": 56,
+      "percentage": 0.06,
+      "lower_bound": 15.3497,
+      "upper_bound": 28.6901
+    },
+    "g": {
+      "count": 99,
+      "percentage": 0.1,
+      "lower_bound": 14.2274,
+      "upper_bound": 26.8616
+    },
+    "r": {
+      "count": 132,
+      "percentage": 0.13,
+      "lower_bound": 13.7724,
+      "upper_bound": 25.4082
+    },
+    "i": {
+      "count": 198,
+      "percentage": 0.2,
+      "lower_bound": 13.736,
+      "upper_bound": 24.3928
+    },
+    "z": {
+      "count": 320,
+      "percentage": 0.32,
+      "lower_bound": 13.77,
+      "upper_bound": 23.6118
+    },
+    "run_ID": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -21.5,
+      "upper_bound": 8534.5
+    },
+    "rerun_ID": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": 301.0,
+      "upper_bound": 301.0
+    },
+    "cam_col": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -2.5,
+      "upper_bound": 9.5
+    },
+    "field_ID": {
+      "count": 5391,
+      "percentage": 5.39,
+      "lower_bound": -156.5,
+      "upper_bound": 479.5
+    },
+    "spec_obj_ID": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -5.38787218422376e+18,
+      "upper_bound": 1.6564153882418233e+19
+    },
+    "redshift": {
+      "count": 8990,
+      "percentage": 8.99,
+      "lower_bound": -0.9199,
+      "upper_bound": 1.6786
+    },
+    "plate": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -4785.375,
+      "upper_bound": 14711.625
+    },
+    "MJD": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": 50419.5,
+      "upper_bound": 60591.5
+    },
+    "fiber_ID": {
+      "count": 0,
+      "percentage": 0.0,
+      "lower_bound": -415.0,
+      "upper_bound": 1281.0
+    }
+  },
+  "missing_by_column": {
+    "obj_ID": 0,
+    "alpha": 0,
+    "delta": 0,
+    "u": 0,
+    "g": 0,
+    "r": 0,
+    "i": 0,
+    "z": 0,
+    "run_ID": 0,
+    "rerun_ID": 0,
+    "cam_col": 0,
+    "field_ID": 0,
+    "spec_obj_ID": 0,
+    "class": 0,
+    "redshift": 0,
+    "plate": 0,
+    "MJD": 0,
+    "fiber_ID": 0
+  },
+  "quality_score": 99.99,
+  "quality_grade": "EXCELLENT",
+  "quality_label": "Excelente (Apto para entrenamiento cient\u00edfico de alta fidelidad)",
+  "recommendations": [
+    "Remover la fila con error de sensor (-9999.0) en bandas u, g, z durante el pipeline ETL.",
+    "Eliminar la columna 'rerun_ID' ya que tiene varianza nula (\u00fanico valor 301).",
+    "Excluir identificadores t\u00e9cnicos (obj_ID, spec_obj_ID, plate, fiber_ID) para evitar fuga de datos (data leakage).",
+    "Conservar los redshifts negativos leves ya que corresponden a blueshift real de estrellas del halo gal\u00e1ctico."
+  ]
+}

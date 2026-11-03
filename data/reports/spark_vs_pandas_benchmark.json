@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-11-02T09:06:11Z",
+  "dataset_rows": 100000,
+  "pandas": {
+    "engine": "Pandas (Single-thread in-memory)",
+    "rows_processed": 99999,
+    "columns_count": 22,
+    "load_time_seconds": 0.0366,
+    "transform_and_agg_time_seconds": 0.0267,
+    "total_time_seconds": 0.0633,
+    "memory_mb": 18.04,
+    "results_summary": {
+      "GALAXY": {
+        "count": 59445,
+        "redshift_mean": 0.4216,
+        "redshift_std": 0.2649,
+        "u_g_mean": 1.6813,
+        "g_r_mean": 1.3185,
+        "r_mean": 19.5876
+      },
+      "QSO": {
+        "count": 18961,
+        "redshift_mean": 1.7197,
+        "redshift_std": 0.914,
+        "u_g_mean": 0.6214,
+        "g_r_mean": 0.3021,
+        "r_mean": 20.6241
+      },
+      "STAR": {
+        "count": 21593,
+        "redshift_mean": -0.0001,
+        "redshift_std": 0.0005,
+        "u_g_mean": 1.5367,
+        "g_r_mean": 0.6701,
+        "r_mean": 18.947
+      }
+    }
+  },
+  "pyspark": {
+    "engine": "Apache PySpark (Distributed DataFrame API)",
+    "rows_processed": 99999,
+    "spark_init_time_seconds": 3.9691,
+    "load_time_seconds": 4.9336,
+    "transform_and_agg_time_seconds": 1.2264,
+    "total_time_seconds": 10.1291,
+    "results_summary": {
+      "STAR": {
+        "count": 21593,
+        "redshift_mean": -0.0001,
+        "redshift_std": 0.0005,
+        "u_g_mean": 1.5367,
+        "g_r_mean": 0.6701,
+        "r_mean": 18.947
+      },
+      "QSO": {
+        "count": 18961,
+        "redshift_mean": 1.7197,
+        "redshift_std": 0.914,
+        "u_g_mean": 0.6214,
+        "g_r_mean": 0.3021,
+        "r_mean": 20.6241
+      },
+      "GALAXY": {
+        "count": 59445,
+        "redshift_mean": 0.4216,
+        "redshift_std": 0.2649,
+        "u_g_mean": 1.6813,
+        "g_r_mean": 1.3185,
+        "r_mean": 19.5876
+      }
+    }
+  },
+  "scientific_analysis": {
+    "findings": "Para un volumen de 100,000 registros (16 MB en memoria), Pandas ejecuta las transformaciones m\u00e1s r\u00e1pidamente en un solo nodo debido a la sobrecarga de inicializaci\u00f3n de la JVM y el planificador de PySpark. Sin embargo, PySpark garantiza escalabilidad horizontal lineal para datasets masivos (>10M de registros / decenas de Gigabytes) donde la memoria RAM de un solo equipo se saturar\u00eda.",
+    "data_consistency": "Ambos motores produjeron exactamente las mismas m\u00e9tricas agregadas por clase."
+  }
+}
