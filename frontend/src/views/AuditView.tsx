@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Database, Filter, Search, ShieldAlert, CheckCircle, Activity } from 'lucide-react';
+import { Database } from 'lucide-react';
 import { api } from '../services/api';
 import { AuditLogItem } from '../types';
 
 export const AuditView: React.FC = () => {
   const [logs, setLogs] = useState<AuditLogItem[]>([]);
   const [filterAction, setFilterAction] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(true);
 
   const loadLogs = async () => {
     try {
@@ -26,13 +26,13 @@ export const AuditView: React.FC = () => {
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 className="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
-            <Database className="w-6 h-6 text-indigo-400" />
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <Database className="w-6 h-6 text-sky-600" />
             Auditoría, Trazabilidad y Reproducibilidad del Sistema
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1 font-medium">
             Registro secuencial de eventos: quién ejecutó cada operación, transformaciones aplicadas, modelos entrenados y parámetros utilizados.
           </p>
         </div>
@@ -40,7 +40,7 @@ export const AuditView: React.FC = () => {
         <select
           value={filterAction}
           onChange={(e) => setFilterAction(e.target.value)}
-          className="px-4 py-2 rounded-xl bg-space-900 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-400 self-start"
+          className="px-4 py-2 rounded-xl bg-white border border-slate-300 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:border-sky-600 shadow-sm self-start"
         >
           <option value="">Todas las Acciones</option>
           <option value="LOGIN">LOGIN</option>
@@ -54,10 +54,10 @@ export const AuditView: React.FC = () => {
       </div>
 
       {/* Logs Table */}
-      <div className="rounded-3xl bg-space-900 border border-slate-800 shadow-xl overflow-hidden">
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs font-mono text-left">
-            <thead className="bg-space-950 text-slate-400 border-b border-slate-800">
+          <table className="w-full text-xs font-mono text-left border-collapse">
+            <thead className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
               <tr>
                 <th className="p-3.5">ID</th>
                 <th className="p-3.5">Acción</th>
@@ -68,22 +68,22 @@ export const AuditView: React.FC = () => {
                 <th className="p-3.5">Timestamp</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {logs.map((log) => (
-                <tr key={log.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="p-3.5 text-slate-500">#{log.id}</td>
-                  <td className="p-3.5 font-bold text-cyan-300">
-                    <span className="px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-800/40 text-[10px]">
+                <tr key={log.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="p-3.5 text-slate-500 font-medium">#{log.id}</td>
+                  <td className="p-3.5 font-bold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] font-bold">
                       {log.action}
                     </span>
                   </td>
-                  <td className="p-3.5 text-purple-300 font-semibold">{log.module}</td>
-                  <td className="p-3.5 text-slate-200">{log.user_email || 'Sistema'}</td>
-                  <td className="p-3.5 text-slate-400 max-w-xs truncate" title={log.details || ''}>
+                  <td className="p-3.5 text-purple-800 font-bold">{log.module}</td>
+                  <td className="p-3.5 text-slate-900 font-bold">{log.user_email || 'Sistema'}</td>
+                  <td className="p-3.5 text-slate-700 max-w-xs truncate font-medium" title={log.details || ''}>
                     {log.details || '-'}
                   </td>
-                  <td className="p-3.5 text-slate-500">{log.ip_address || '127.0.0.1'}</td>
-                  <td className="p-3.5 text-slate-400">{new Date(log.timestamp).toLocaleString()}</td>
+                  <td className="p-3.5 text-slate-500 font-medium">{log.ip_address || '127.0.0.1'}</td>
+                  <td className="p-3.5 text-slate-600 font-medium">{new Date(log.timestamp).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
@@ -93,4 +93,3 @@ export const AuditView: React.FC = () => {
     </div>
   );
 };
-

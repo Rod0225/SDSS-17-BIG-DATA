@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Users, UserPlus, Search, Edit2, Trash2, Shield, Check, X, AlertTriangle } from 'lucide-react';
+import { Users, UserPlus, Search, Edit2, Trash2, AlertTriangle } from 'lucide-react';
 import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { User, Role } from '../types';
 
 export const UserManagementView: React.FC = () => {
-  const { user: currentUser, isAdmin } = useAuth();
+  const { isAdmin } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   // Modal create/edit state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -97,13 +97,13 @@ export const UserManagementView: React.FC = () => {
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 className="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
-            <Users className="w-6 h-6 text-teal-400" />
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <Users className="w-6 h-6 text-teal-600" />
             Administración de Usuarios y Control de Acceso (RBAC)
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1 font-medium">
             Gestión integral de usuarios, asignación de privilegios (Admin, Analista, Visualizador) y seguridad de sesiones.
           </p>
         </div>
@@ -111,7 +111,7 @@ export const UserManagementView: React.FC = () => {
         {isAdmin && (
           <button
             onClick={openCreateModal}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-semibold text-xs flex items-center gap-2 shadow-lg shadow-teal-950 transition-all hover:scale-105 self-start"
+            className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-teal-200 transition-all hover:scale-105 self-start"
           >
             <UserPlus className="w-4 h-4" />
             Registrar Nuevo Usuario
@@ -128,14 +128,14 @@ export const UserManagementView: React.FC = () => {
             placeholder="Buscar por nombre o correo electrónico..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-space-900 border border-slate-700 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-400"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 placeholder-slate-400 font-mono focus:outline-none focus:border-sky-600 shadow-sm"
           />
         </div>
 
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="px-4 py-2.5 rounded-xl bg-space-900 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-400"
+          className="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-xs font-mono font-bold text-slate-800 focus:outline-none focus:border-sky-600 shadow-sm"
         >
           <option value="">Todos los Roles</option>
           <option value="ADMIN">ADMIN (Administrador)</option>
@@ -145,10 +145,10 @@ export const UserManagementView: React.FC = () => {
       </div>
 
       {/* Users Table */}
-      <div className="rounded-3xl bg-space-900 border border-slate-800 shadow-xl overflow-hidden">
+      <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs font-mono text-left">
-            <thead className="bg-space-950 text-slate-400 border-b border-slate-800">
+          <table className="w-full text-xs font-mono text-left border-collapse">
+            <thead className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
               <tr>
                 <th className="p-3.5">ID</th>
                 <th className="p-3.5">Usuario</th>
@@ -159,42 +159,42 @@ export const UserManagementView: React.FC = () => {
                 {isAdmin && <th className="p-3.5 text-right">Acciones</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-100">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="p-3.5 text-slate-500">#{u.id}</td>
-                  <td className="p-3.5 font-bold text-white font-sans">{u.full_name}</td>
-                  <td className="p-3.5 text-slate-300">{u.email}</td>
+                <tr key={u.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="p-3.5 text-slate-500 font-medium">#{u.id}</td>
+                  <td className="p-3.5 font-bold text-slate-900 font-sans">{u.full_name}</td>
+                  <td className="p-3.5 text-slate-700 font-medium">{u.email}</td>
                   <td className="p-3.5">
                     <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                      u.role === 'ADMIN' ? 'bg-amber-950 text-amber-300 border border-amber-800' :
-                      u.role === 'ANALYST' ? 'bg-purple-950 text-purple-300 border border-purple-800' :
-                      'bg-slate-800 text-slate-300 border border-slate-700'
+                      u.role === 'ADMIN' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                      u.role === 'ANALYST' ? 'bg-purple-100 text-purple-900 border border-purple-300' :
+                      'bg-slate-100 text-slate-700 border border-slate-300'
                     }`}>
                       {u.role}
                     </span>
                   </td>
                   <td className="p-3.5">
-                    <span className={`inline-flex items-center gap-1.5 text-[11px] ${
-                      u.is_active ? 'text-emerald-400' : 'text-rose-400'
+                    <span className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${
+                      u.is_active ? 'text-emerald-700' : 'text-rose-700'
                     }`}>
-                      <span className={`w-2 h-2 rounded-full ${u.is_active ? 'bg-emerald-400' : 'bg-rose-400'}`}></span>
+                      <span className={`w-2 h-2 rounded-full ${u.is_active ? 'bg-emerald-600' : 'bg-rose-600'}`}></span>
                       {u.is_active ? 'Activo' : 'Inactivo'}
                     </span>
                   </td>
-                  <td className="p-3.5 text-slate-500">{new Date(u.created_at).toLocaleDateString()}</td>
+                  <td className="p-3.5 text-slate-500 font-medium">{new Date(u.created_at).toLocaleDateString()}</td>
                   {isAdmin && (
                     <td className="p-3.5 text-right space-x-2">
                       <button
                         onClick={() => openEditModal(u)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-cyan-300 hover:bg-cyan-950/40 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-500 hover:text-sky-700 hover:bg-sky-50 transition-colors"
                         title="Modificar Usuario"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(u)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-500 hover:text-rose-700 hover:bg-rose-50 transition-colors"
                         title="Eliminar Usuario"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -210,45 +210,45 @@ export const UserManagementView: React.FC = () => {
 
       {/* Create / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-md bg-space-900 border border-slate-700 rounded-3xl p-6 shadow-2xl space-y-4">
-            <h3 className="text-lg font-bold text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white border border-slate-300 rounded-2xl p-6 shadow-2xl space-y-4">
+            <h3 className="text-lg font-bold text-slate-900">
               {editingUser ? 'Modificar Usuario' : 'Registrar Nuevo Usuario'}
             </h3>
 
             {modalError && (
-              <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-xs text-rose-300 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+              <div className="p-3 rounded-xl bg-rose-50 border border-rose-300 text-xs text-rose-900 flex items-center gap-2 font-medium">
+                <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-600" />
                 <span>{modalError}</span>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-3.5">
               <div>
-                <label className="text-xs font-mono text-slate-400 block mb-1">Nombre Completo</label>
+                <label className="text-xs font-mono font-bold text-slate-700 block mb-1">Nombre Completo</label>
                 <input
                   type="text"
                   required
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-space-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-mono text-slate-400 block mb-1">Correo Electrónico</label>
+                <label className="text-xs font-mono font-bold text-slate-700 block mb-1">Correo Electrónico</label>
                 <input
                   type="email"
                   required
                   disabled={!!editingUser}
                   value={formEmail}
                   onChange={(e) => setFormEmail(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-space-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400 disabled:opacity-50"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 disabled:opacity-50 disabled:bg-slate-100 shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-mono text-slate-400 block mb-1">
+                <label className="text-xs font-mono font-bold text-slate-700 block mb-1">
                   {editingUser ? 'Nueva Contraseña (dejar en blanco para conservar)' : 'Contraseña'}
                 </label>
                 <input
@@ -256,16 +256,16 @@ export const UserManagementView: React.FC = () => {
                   required={!editingUser}
                   value={formPassword}
                   onChange={(e) => setFormPassword(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-space-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-mono text-slate-400 block mb-1">Rol de Acceso</label>
+                <label className="text-xs font-mono font-bold text-slate-700 block mb-1">Rol de Acceso</label>
                 <select
                   value={formRole}
                   onChange={(e) => setFormRole(e.target.value as Role)}
-                  className="w-full px-3 py-2 rounded-xl bg-space-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-400"
+                  className="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 font-bold focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 shadow-sm"
                 >
                   <option value="VIEWER">VIEWER (Consultas y visualización 3D)</option>
                   <option value="ANALYST">ANALYST (Preprocesamiento, modelos y predicciones)</option>
@@ -280,9 +280,9 @@ export const UserManagementView: React.FC = () => {
                     id="userActiveCheck"
                     checked={formActive}
                     onChange={(e) => setFormActive(e.target.checked)}
-                    className="rounded accent-cyan-400"
+                    className="rounded accent-sky-600"
                   />
-                  <label htmlFor="userActiveCheck" className="text-xs font-mono text-slate-300 cursor-pointer">
+                  <label htmlFor="userActiveCheck" className="text-xs font-mono font-bold text-slate-800 cursor-pointer">
                     Cuenta Activa
                   </label>
                 </div>
@@ -292,13 +292,13 @@ export const UserManagementView: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-200 transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-colors"
+                  className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-md shadow-sky-200 transition-colors"
                 >
                   {editingUser ? 'Guardar Cambios' : 'Registrar'}
                 </button>
@@ -310,4 +310,3 @@ export const UserManagementView: React.FC = () => {
     </div>
   );
 };
-

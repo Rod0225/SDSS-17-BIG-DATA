@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cpu, Award, Zap, BarChart2, RefreshCw, CheckCircle2, TrendingUp, Layers } from 'lucide-react';
+import { Cpu, Award, Zap, BarChart2, RefreshCw, TrendingUp } from 'lucide-react';
 import {
   ResponsiveContainer,
   BarChart,
@@ -62,7 +62,7 @@ export const MachineLearningView: React.FC = () => {
   if (loading || !summary) {
     return (
       <div className="p-8 flex items-center justify-center min-h-[60vh]">
-        <div className="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-10 h-10 border-4 border-sky-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -79,7 +79,6 @@ export const MachineLearningView: React.FC = () => {
       }));
 
   // ROC curve data for selected model
-  const rocClasses = ['GALAXY', 'STAR', 'QSO'];
   const rocChartData: any[] = [];
   if (selectedModel?.roc_curves?.['GALAXY']) {
     const galaxyFpr = selectedModel.roc_curves['GALAXY'].fpr;
@@ -101,13 +100,13 @@ export const MachineLearningView: React.FC = () => {
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
       {/* Title & Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h2 className="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
-            <Cpu className="w-6 h-6 text-pink-400" />
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <Cpu className="w-6 h-6 text-purple-600" />
             Módulo de Machine Learning y Clasificación Supervisada
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1 font-medium">
             Entrenamiento, optimización y comparación de 6 algoritmos supervisados multiclase evaluados con 100,000 objetos astronómicos reales.
           </p>
         </div>
@@ -117,7 +116,7 @@ export const MachineLearningView: React.FC = () => {
             <button
               onClick={() => handleRetrain(false)}
               disabled={retraining}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold text-xs flex items-center gap-2 shadow-lg shadow-pink-950 transition-all hover:scale-105 disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-purple-200 transition-all hover:scale-105 disabled:opacity-50"
             >
               <RefreshCw className={`w-4 h-4 ${retraining ? 'animate-spin' : ''}`} />
               {retraining ? 'Reentrenando...' : 'Reentrenar Todos los Modelos'}
@@ -127,35 +126,35 @@ export const MachineLearningView: React.FC = () => {
       </div>
 
       {/* Best Model Banner */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-space-900 via-purple-950/40 to-space-900 border border-purple-800/50 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-purple-50 via-sky-50 to-purple-50 border border-purple-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-purple-950 border border-purple-600/50 flex items-center justify-center text-purple-400 shadow-xl shadow-purple-900/30 flex-shrink-0">
+          <div className="w-14 h-14 rounded-2xl bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-800 shadow-sm flex-shrink-0">
             <Award className="w-8 h-8" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-purple-300 font-bold uppercase tracking-wider">Modelo Campeón Seleccionado</span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-300 text-[10px] font-mono">
+              <span className="text-xs font-mono text-purple-900 font-bold uppercase tracking-wider">Modelo Campeón Seleccionado</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-[10px] font-mono font-bold">
                 Supera Objetivo &gt;80%
               </span>
             </div>
-            <h3 className="text-2xl font-extrabold text-white mt-0.5">{summary.best_model_name}</h3>
-            <p className="text-xs text-slate-400 font-mono">
-              Macro F1-Score: <strong>{(summary.best_f1_macro * 100).toFixed(2)}%</strong> • Muestras de prueba: 20,000
+            <h3 className="text-2xl font-black text-slate-900 mt-0.5">{summary.best_model_name}</h3>
+            <p className="text-xs text-slate-700 font-mono font-medium">
+              Macro F1-Score: <strong className="text-slate-900 font-bold">{(summary.best_f1_macro * 100).toFixed(2)}%</strong> • Muestras de prueba: 20,000
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-6 font-mono text-center">
-          <div className="bg-space-950 px-4 py-2 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-500 block">Accuracy Global</span>
-            <span className="text-xl font-bold text-emerald-400">
+        <div className="flex items-center gap-4 font-mono text-center">
+          <div className="bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+            <span className="text-[10px] text-slate-500 font-bold block">Accuracy Global</span>
+            <span className="text-xl font-black text-emerald-700">
               {((selectedModel?.accuracy || 0.9795) * 100).toFixed(2)}%
             </span>
           </div>
-          <div className="bg-space-950 px-4 py-2 rounded-xl border border-slate-800">
-            <span className="text-[10px] text-slate-500 block">Tiempo Entrenamiento</span>
-            <span className="text-xl font-bold text-cyan-400">
+          <div className="bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+            <span className="text-[10px] text-slate-500 font-bold block">Tiempo Entrenamiento</span>
+            <span className="text-xl font-black text-sky-700">
               {selectedModel?.training_time_seconds || 2.46}s
             </span>
           </div>
@@ -163,21 +162,21 @@ export const MachineLearningView: React.FC = () => {
       </div>
 
       {/* Model Comparison Table */}
-      <div className="p-6 rounded-3xl bg-space-900 border border-slate-800 shadow-xl space-y-4">
+      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-white tracking-wide">Tabla Comparativa de los 6 Algoritmos Supervisados</h3>
-            <p className="text-xs text-slate-400">Evaluación multiclase sobre el 20% estratificado de prueba (20,000 registros)</p>
+            <h3 className="text-base font-bold text-slate-900 tracking-wide">Tabla Comparativa de los 6 Algoritmos Supervisados</h3>
+            <p className="text-xs text-slate-500 font-medium">Evaluación multiclase sobre el 20% estratificado de prueba (20,000 registros)</p>
           </div>
-          <span className="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-lg border border-cyan-800">
+          <span className="text-xs font-mono font-bold text-sky-900 bg-sky-100 px-3 py-1 rounded-lg border border-sky-300">
             Sin Data Leakage
           </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-xs font-mono text-left">
+          <table className="w-full text-xs font-mono text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400">
+              <tr className="border-b-2 border-slate-200 text-slate-600 font-bold">
                 <th className="p-3">Algoritmo</th>
                 <th className="p-3 text-center">Accuracy</th>
                 <th className="p-3 text-center">Precision (Macro)</th>
@@ -196,22 +195,22 @@ export const MachineLearningView: React.FC = () => {
                   <tr
                     key={m.model_name}
                     onClick={() => setSelectedModel(m)}
-                    className={`border-b border-slate-800/50 cursor-pointer transition-colors ${
-                      isSelected ? 'bg-cyan-950/40 text-cyan-200 font-bold' : 'hover:bg-slate-800/30 text-slate-300'
+                    className={`border-b border-slate-100 cursor-pointer transition-colors ${
+                      isSelected ? 'bg-sky-50 text-sky-950 font-bold' : 'hover:bg-slate-50 text-slate-800'
                     }`}
                   >
-                    <td className="p-3 flex items-center gap-2 font-sans font-semibold">
-                      {isBest && <Award className="w-4 h-4 text-amber-400 flex-shrink-0" />}
+                    <td className="p-3 flex items-center gap-2 font-sans font-bold">
+                      {isBest && <Award className="w-4 h-4 text-amber-600 flex-shrink-0" />}
                       {m.model_name}
                     </td>
-                    <td className="p-3 text-center text-emerald-400 font-bold">{(m.accuracy * 100).toFixed(2)}%</td>
-                    <td className="p-3 text-center">{(m.precision_macro * 100).toFixed(2)}%</td>
-                    <td className="p-3 text-center">{(m.recall_macro * 100).toFixed(2)}%</td>
-                    <td className="p-3 text-center text-cyan-300 font-bold">{(m.f1_macro * 100).toFixed(2)}%</td>
-                    <td className="p-3 text-center">{m.training_time_seconds.toFixed(2)}s</td>
+                    <td className="p-3 text-center text-emerald-700 font-black">{(m.accuracy * 100).toFixed(2)}%</td>
+                    <td className="p-3 text-center font-bold">{(m.precision_macro * 100).toFixed(2)}%</td>
+                    <td className="p-3 text-center font-bold">{(m.recall_macro * 100).toFixed(2)}%</td>
+                    <td className="p-3 text-center text-sky-800 font-black">{(m.f1_macro * 100).toFixed(2)}%</td>
+                    <td className="p-3 text-center font-medium">{m.training_time_seconds.toFixed(2)}s</td>
                     <td className="p-3 text-center">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] ${
-                        isBest ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-slate-800 text-slate-400'
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        isBest ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-100 text-slate-600 border border-slate-200'
                       }`}>
                         {isBest ? 'Campeón' : 'Evaluado'}
                       </span>
@@ -228,22 +227,22 @@ export const MachineLearningView: React.FC = () => {
       {selectedModel && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Confusion Matrix */}
-          <div className="p-6 rounded-3xl bg-space-900 border border-slate-800 shadow-xl space-y-4">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <BarChart2 className="w-5 h-5 text-purple-400" />
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <BarChart2 className="w-5 h-5 text-purple-600" />
                 Matriz de Confusión Multiclase ({selectedModel.model_name})
               </h3>
-              <p className="text-xs text-slate-400">Filas: Clase Real vs Columnas: Clase Predicha</p>
+              <p className="text-xs text-slate-500 font-medium">Filas: Clase Real vs Columnas: Clase Predicha</p>
             </div>
 
             <div className="overflow-x-auto pt-2">
-              <table className="w-full text-xs font-mono text-center">
+              <table className="w-full text-xs font-mono text-center border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800">
-                    <th className="p-2 text-left text-slate-400">Real \ Pred</th>
+                  <tr className="border-b-2 border-slate-200">
+                    <th className="p-2 text-left text-slate-600 font-bold">Real \ Pred</th>
                     {selectedModel.classes.map((c) => (
-                      <th key={c} className="p-2 text-slate-300 font-bold">{c}</th>
+                      <th key={c} className="p-2 text-slate-900 font-bold">{c}</th>
                     ))}
                   </tr>
                 </thead>
@@ -253,22 +252,22 @@ export const MachineLearningView: React.FC = () => {
                     const rowSum = row.reduce((a, b) => a + b, 0);
 
                     return (
-                      <tr key={rowClass} className="border-b border-slate-800/40">
-                        <td className="p-2 text-left font-bold text-slate-300">{rowClass}</td>
+                      <tr key={rowClass} className="border-b border-slate-100">
+                        <td className="p-2 text-left font-black text-slate-900">{rowClass}</td>
                         {row.map((val, cIdx) => {
                           const isDiagonal = rIdx === cIdx;
                           const pct = (val / rowSum) * 100;
                           return (
                             <td
                               key={cIdx}
-                              className={`p-3 rounded-lg ${
+                              className={`p-3 rounded-lg border border-slate-100 ${
                                 isDiagonal
-                                  ? 'bg-purple-950/80 text-purple-300 font-bold border border-purple-800/40'
-                                  : val > 0 ? 'bg-slate-900/60 text-slate-400' : 'text-slate-600'
+                                  ? 'bg-purple-100 text-purple-950 font-black border-purple-200 shadow-sm'
+                                  : val > 0 ? 'bg-rose-50 text-rose-900 font-bold' : 'text-slate-400 font-medium'
                               }`}
                             >
                               <span className="block text-sm">{val.toLocaleString()}</span>
-                              <span className="text-[10px] text-slate-500 font-mono">{pct.toFixed(1)}%</span>
+                              <span className="text-[10px] text-slate-600 font-bold font-mono">{pct.toFixed(1)}%</span>
                             </td>
                           );
                         })}
@@ -281,27 +280,27 @@ export const MachineLearningView: React.FC = () => {
           </div>
 
           {/* Multiclass ROC Curves */}
-          <div className="p-6 rounded-3xl bg-space-900 border border-slate-800 shadow-xl space-y-4">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-cyan-400" />
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-sky-600" />
                 Curvas ROC Multiclase (One-vs-Rest)
               </h3>
-              <p className="text-xs text-slate-400">Tasa de Verdaderos Positivos vs Falsos Positivos</p>
+              <p className="text-xs text-slate-500 font-medium">Tasa de Verdaderos Positivos vs Falsos Positivos</p>
             </div>
 
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={rocChartData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1F2937" />
-                  <XAxis dataKey="fpr" stroke="#94A3B8" fontSize={10} label={{ value: 'Falso Positivo (FPR)', position: 'insideBottom', offset: -5, fill: '#94A3B8', fontSize: 10 }} />
-                  <YAxis stroke="#94A3B8" fontSize={10} domain={[0, 1]} />
-                  <Tooltip contentStyle={{ backgroundColor: '#0B0F19', borderColor: '#374151', borderRadius: '0.75rem' }} />
-                  <Legend formatter={(val) => <span className="text-xs text-slate-300">{val}</span>} />
-                  <Line type="monotone" dataKey="GALAXY" stroke="#A855F7" dot={false} strokeWidth={2} name="GALAXY (AUC 0.99)" />
-                  <Line type="monotone" dataKey="STAR" stroke="#38BDF8" dot={false} strokeWidth={2} name="STAR (AUC 0.99)" />
-                  <Line type="monotone" dataKey="QSO" stroke="#F59E0B" dot={false} strokeWidth={2} name="QSO (AUC 0.98)" />
-                  <Line type="monotone" dataKey="diagonal" stroke="#475569" strokeDasharray="5 5" dot={false} name="Azar (0.50)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                  <XAxis dataKey="fpr" stroke="#475569" fontSize={10} fontWeight={600} label={{ value: 'Falso Positivo (FPR)', position: 'insideBottom', offset: -5, fill: '#475569', fontSize: 10, fontWeight: 600 }} />
+                  <YAxis stroke="#475569" fontSize={10} fontWeight={600} domain={[0, 1]} />
+                  <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CBD5E1', borderRadius: '0.75rem', color: '#0F172A', fontWeight: 600, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                  <Legend formatter={(val) => <span className="text-xs font-bold text-slate-800">{val}</span>} />
+                  <Line type="monotone" dataKey="GALAXY" stroke="#7E22CE" dot={false} strokeWidth={2.5} name="GALAXY (AUC 0.99)" />
+                  <Line type="monotone" dataKey="STAR" stroke="#0284C7" dot={false} strokeWidth={2.5} name="STAR (AUC 0.99)" />
+                  <Line type="monotone" dataKey="QSO" stroke="#D97706" dot={false} strokeWidth={2.5} name="QSO (AUC 0.98)" />
+                  <Line type="monotone" dataKey="diagonal" stroke="#94A3B8" strokeDasharray="4 4" dot={false} strokeWidth={1.5} name="Azar (0.50)" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -310,26 +309,26 @@ export const MachineLearningView: React.FC = () => {
       )}
 
       {/* Feature Importance Bar Chart */}
-      <div className="p-6 rounded-3xl bg-space-900 border border-slate-800 shadow-xl space-y-4">
+      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Zap className="w-5 h-5 text-amber-400" />
+          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <Zap className="w-5 h-5 text-amber-600" />
             Importancia de Características (Feature Importance)
           </h3>
-          <p className="text-xs text-slate-400">Poder discriminante de las variables fotométricas y astrofísicas en la clasificación</p>
+          <p className="text-xs text-slate-500 font-medium">Poder discriminante de las variables fotométricas y astrofísicas en la clasificación</p>
         </div>
 
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={featureImpData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1F2937" />
-              <XAxis dataKey="característica" stroke="#94A3B8" fontSize={11} />
-              <YAxis stroke="#94A3B8" fontSize={11} label={{ value: 'Importancia Relativa (%)', angle: -90, position: 'insideLeft', fill: '#94A3B8', fontSize: 10 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="característica" stroke="#475569" fontSize={11} fontWeight={600} />
+              <YAxis stroke="#475569" fontSize={11} fontWeight={600} label={{ value: 'Importancia Relativa (%)', angle: -90, position: 'insideLeft', fill: '#475569', fontSize: 10, fontWeight: 600 }} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#0B0F19', borderColor: '#374151', borderRadius: '0.75rem' }}
+                contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#CBD5E1', borderRadius: '0.75rem', color: '#0F172A', fontWeight: 600, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 formatter={(val: number) => [`${val}%`, 'Importancia']}
               />
-              <Bar dataKey="importancia" fill="#EC4899" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="importancia" fill="#0284C7" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -337,4 +336,3 @@ export const MachineLearningView: React.FC = () => {
     </div>
   );
 };
-

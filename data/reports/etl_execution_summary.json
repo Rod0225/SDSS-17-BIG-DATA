@@ -23,8 +23,8 @@
       "MJD",
       "fiber_ID"
     ],
-    "extraction_time_seconds": 0.0356,
-    "timestamp": "2026-11-02T15:05:08.473447"
+    "extraction_time_seconds": 0.2543,
+    "timestamp": "2026-11-10T20:48:12.699821"
   },
   "transform": {
     "initial_rows": 100000,
@@ -39,7 +39,7 @@
       "Computed 3D cosmological spatial coordinates (pos_x_spatial, pos_y_spatial, pos_z_spatial).",
       "Dropped 'rerun_ID' (zero variance constant 301)."
     ],
-    "transformation_time_seconds": 0.1856,
+    "transformation_time_seconds": 0.5709,
     "outlier_counts": {
       "u": 55,
       "g": 98,
@@ -54,7 +54,7 @@
     "csv_path": "C:\\Users\\ramir\\Documents\\ESCOM\\Septimo Semestre\\big data\\proyectoFinal\\data\\processed\\sdss_cleaned.csv",
     "csv_size_mb": 34.53,
     "compression": "snappy",
-    "load_time_seconds": 9.0318,
-    "timestamp": "2026-11-02T15:05:17.690766"
+    "load_time_seconds": 6.5779,
+    "timestamp": "2026-11-10T20:48:19.860662"
   }
 }
