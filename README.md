@@ -2,7 +2,6 @@
 
 Plataforma científica web integral que cubre todo el ciclo de vida de un proyecto de Big Data y Ciencia de Datos sobre el conjunto de datos **Stellar Classification Dataset - SDSS17** (Sloan Digital Sky Survey Data Release 17, 100,000 registros y 18 columnas).
 
-Desarrollada por un equipo multidisciplinario (Arquitecto Big Data, Científico de Datos, Ingeniero de ML, Ingeniero de Datos, Desarrollador Full Stack y Diseñador UX/UI).
 
 ---
 
